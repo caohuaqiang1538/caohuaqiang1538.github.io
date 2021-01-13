@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://caohuaqiang1538.github.io/favicon.ico?v=1610523724783">
+<link rel="shortcut icon" href="https://caohuaqiang1538.github.io/favicon.ico?v=1610525093915">
 <link rel="stylesheet" href="https://caohuaqiang1538.github.io/styles/main.css">
 
 
@@ -30,8 +30,7 @@ Storybook安装
 项目插件及编译配置【main.js】
 
 addons插件使用
-
-添加sa..." />
+添加sas..." />
     <meta name="keywords" content="javascript" />
   </head>
   <body>
@@ -41,7 +40,7 @@ addons插件使用
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://caohuaqiang1538.github.io">
-        <img src="https://caohuaqiang1538.github.io/images/avatar.png?v=1610523724783" class="site-logo">
+        <img src="https://caohuaqiang1538.github.io/images/avatar.png?v=1610525093915" class="site-logo">
         <h1 class="site-title">强崽-耗子尾汁</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -122,13 +121,10 @@ addons插件使用
 <li><a href="#%E9%A1%B9%E7%9B%AE%E6%8F%92%E4%BB%B6%E5%8F%8A%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AEmainjs">项目插件及编译配置【main.js】</a>
 <ul>
 <li><a href="#addons%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8">addons插件使用</a></li>
-<li></li>
 <li><a href="#%E6%B7%BB%E5%8A%A0sassalias%E6%94%AF%E6%8C%81">添加sass/alias支持</a></li>
-<li></li>
 <li><a href="#%E6%B7%BB%E5%8A%A0babel%E6%94%AF%E6%8C%81">添加babel支持</a></li>
 </ul>
 </li>
-<li></li>
 <li><a href="#%E6%A8%A1%E6%9D%BF%E5%BA%93%E9%A2%84%E8%A7%88%E9%85%8D%E7%BD%AEpreviewjs">模板库预览配置【preview.js】</a>
 <ul>
 <li><a href="#%E6%9B%B4%E6%94%B9%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%98%BE%E7%A4%BA">更改组件的位置显示</a></li>
@@ -146,7 +142,6 @@ addons插件使用
 </li>
 </ul>
 </li>
-<li></li>
 <li><a href="#storybook%E4%BD%BF%E7%94%A8">Storybook使用</a>
 <ul>
 <li><a href="#%E5%9F%BA%E7%A1%80%E6%A8%A1%E6%9D%BF">基础模板</a>
@@ -154,12 +149,10 @@ addons插件使用
 <li><a href="#%E5%AF%BC%E5%87%BA%E7%BB%84%E4%BB%B6%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E">导出组件参数说明</a></li>
 </ul>
 </li>
-<li></li>
 <li><a href="#%E7%BB%84%E4%BB%B6%E5%B5%8C%E5%A5%97">组件嵌套</a></li>
 <li><a href="#%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B">创建组件实例</a></li>
 </ul>
 </li>
-<li></li>
 <li><a href="#%E5%BE%85%E8%A7%A3%E5%86%B3%E5%8F%8A%E9%97%AE%E9%A2%98">待解决及问题</a></li>
 </ul>
 </li>
@@ -232,7 +225,6 @@ module.exports = {
   ],
 };
 </code></pre>
-<h4 id=""></h4>
 <h4 id="添加sassalias支持">添加sass/alias支持</h4>
 <pre><code class="language-plain">&quot;webpackFinal&quot;: async (config, { configType }) =&gt; {
   // 添加scss支持
@@ -261,7 +253,6 @@ module.exports = {
 <blockquote>
 <p>alias配置要与vue.config.js中alias配置一致，确保storybook能正确匹配到对应的文件</p>
 </blockquote>
-<h4 id="-2"></h4>
 <h4 id="添加babel支持"><a href="https://storybook.js.org/docs/react/configure/babel">添加babel支持</a>（todo）</h4>
 <ol>
 <li>可在<code>.storybook</code>添加<code>.babelIrc</code>文件单独进行配置</li>
@@ -275,7 +266,6 @@ module.exports = {
 <blockquote>
 <p>目前尚未配置好babel，暂时注释掉项目中的 babel.config.js 文件</p>
 </blockquote>
-<h3 id="-3"></h3>
 <h3 id="模板库预览配置previewjs">模板库预览配置【preview.js】</h3>
 <h4 id="更改组件的位置显示">更改组件的位置显示</h4>
 <p>可选配置，有三种类型可选：</p>
@@ -298,7 +288,7 @@ module.exports = {
   },
 },
 </code></pre>
-<h3 id="-4"></h3>
+<h3 id=""></h3>
 <h3 id="项目定制化配置indexstoriesjs">项目定制化配置【index.stories.js】</h3>
 <h4 id="添加全局组件及全局指令支持">添加全局组件及全局指令支持</h4>
 <pre><code class="language-plain">import directive from '@/utils/directive';
@@ -335,7 +325,6 @@ Vue.prototype.i18n = i18n;
 <blockquote>
 <p>通过这种方法使用词条，公共组件的 this.$t() 方法需要更改为 i18n.tc() 方法</p>
 </blockquote>
-<h2 id="-5"></h2>
 <h2 id="storybook使用"><a href="https://storybook.js.org/docs/react/api/csf">Storybook使用</a></h2>
 <h3 id="基础模板">基础模板</h3>
 <ol>
@@ -413,7 +402,6 @@ LoggedOut.args = {}; // 应用实例2参数
 5.组件书写时，对于基本类型的默认值，建议直接写为： default: 值  不要使用箭头函数来书写基本类型的默认参数</li>
 </ol>
 </blockquote>
-<h3 id="-6"></h3>
 <h3 id="组件嵌套">组件嵌套</h3>
 <p>条件：1. 某个组件需嵌套另一个公共组件；2. 需要传入值到公共组件</p>
 <p>示例：</p>
@@ -452,7 +440,6 @@ Secondary.args = {
 <blockquote>
 <p>可根据不同的使用场景，传入不同的参数，创建多个组件实例。创建后，组件文档会生成对应的多个组件实例演示</p>
 </blockquote>
-<h2 id="-7"></h2>
 <h2 id="待解决及问题">待解决及问题</h2>
 <p>待解决：</p>
 <ol>

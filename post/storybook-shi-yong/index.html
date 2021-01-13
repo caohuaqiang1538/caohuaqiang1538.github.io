@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://caohuaqiang1538.github.io/favicon.ico?v=1610508202965">
+<link rel="shortcut icon" href="https://caohuaqiang1538.github.io/favicon.ico?v=1610508299861">
 <link rel="stylesheet" href="https://caohuaqiang1538.github.io/styles/main.css">
 
 
@@ -18,9 +18,24 @@
 
 
 
-    <meta name="description" content="Storybook使用说明（vue项目）
+    <meta name="description" content="
+Storybook
+
 什么是storybook
-Storybook可以帮助记录项目中封装的组件，方便组件复用。并且可以直观的测试组件，查看组件的各种状态及组件参数。随着项目越来越大，以及新加入项目组的人变多，更好的做到组..." />
+Storybook安装
+
+安装到项目
+项目插件及编译配置【main.js】
+
+addons插件使用
+
+添加sass/alias支持
+
+添加babel支持
+
+
+
+模板库预览配置【preview..." />
     <meta name="keywords" content="javascript" />
   </head>
   <body>
@@ -30,7 +45,7 @@ Storybook可以帮助记录项目中封装的组件，方便组件复用。并�
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://caohuaqiang1538.github.io">
-        <img src="https://caohuaqiang1538.github.io/images/avatar.png?v=1610508202965" class="site-logo">
+        <img src="https://caohuaqiang1538.github.io/images/avatar.png?v=1610508299861" class="site-logo">
         <h1 class="site-title">强崽耗子尾汁</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -96,7 +111,60 @@ Storybook可以帮助记录项目中封装的组件，方便组件复用。并�
             <div class="post-date">2021-01-13</div>
             
             <div class="post-content" v-pre>
-              <h1 id="storybook"><a href="https://storybook.js.org">Storybook</a><strong>使用说明（vue项目）</strong></h1>
+              <p><ul class="markdownIt-TOC">
+<li><a href="#storybook">Storybook</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFstorybook"><strong>什么是storybook</strong></a></li>
+<li><a href="#storybook%E5%AE%89%E8%A3%85"><strong>Storybook安装</strong></a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85%E5%88%B0%E9%A1%B9%E7%9B%AE">安装到项目</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%8F%92%E4%BB%B6%E5%8F%8A%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AEmainjs">项目插件及编译配置【main.js】</a>
+<ul>
+<li><a href="#addons%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8">addons插件使用</a></li>
+<li></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0sassalias%E6%94%AF%E6%8C%81">添加sass/alias支持</a></li>
+<li></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0babel%E6%94%AF%E6%8C%81">添加babel支持</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E6%A8%A1%E6%9D%BF%E5%BA%93%E9%A2%84%E8%A7%88%E9%85%8D%E7%BD%AEpreviewjs">模板库预览配置【preview.js】</a>
+<ul>
+<li><a href="#%E6%9B%B4%E6%94%B9%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%98%BE%E7%A4%BA">更改组件的位置显示</a></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E6%98%BE%E7%A4%BA%E9%A1%BA%E5%BA%8F%E8%AE%BE%E7%BD%AE">组件显示顺序设置</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E5%88%B6%E5%8C%96%E9%85%8D%E7%BD%AEindexstoriesjs">项目定制化配置【index.stories.js】</a>
+<ul>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80%E7%BB%84%E4%BB%B6%E5%8F%8A%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4%E6%94%AF%E6%8C%81">添加全局组件及全局指令支持</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0element%E9%BB%98%E8%AE%A4%E7%BB%84%E4%BB%B6%E5%8F%8A%E5%85%AC%E5%85%B1%E6%A0%B7%E5%BC%8F%E6%94%AF%E6%8C%81">添加element默认组件及公共样式支持</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0lodash%E6%94%AF%E6%8C%81">添加lodash支持</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0i18n%E6%94%AF%E6%8C%81">添加i18n支持</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li></li>
+<li><a href="#storybook%E4%BD%BF%E7%94%A8">Storybook使用</a>
+<ul>
+<li><a href="#%E5%9F%BA%E7%A1%80%E6%A8%A1%E6%9D%BF">基础模板</a>
+<ul>
+<li><a href="#%E5%AF%BC%E5%87%BA%E7%BB%84%E4%BB%B6%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E">导出组件参数说明</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E5%B5%8C%E5%A5%97">组件嵌套</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B">创建组件实例</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E5%BE%85%E8%A7%A3%E5%86%B3%E5%8F%8A%E9%97%AE%E9%A2%98">待解决及问题</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="storybook"><a href="https://storybook.js.org">Storybook</a><strong>使用说明（vue项目）</strong></h1>
 <h2 id="什么是storybook"><strong>什么是storybook</strong></h2>
 <p>Storybook可以帮助记录项目中封装的组件，方便组件复用。并且可以直观的测试组件，查看组件的各种状态及组件参数。随着项目越来越大，以及新加入项目组的人变多，更好的做到组件复用，避免写一些冗余组件，更快的了解封装组件的使用。</p>
 <h2 id="storybook安装"><strong>Storybook安装</strong></h2>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Storybook 使用 | 强崽-耗子尾汁</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://caohuaqiang1538.github.io/favicon.ico?v=1610522320982">
+<link rel="stylesheet" href="https://caohuaqiang1538.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="结合vue项目搭建storybook工程，storybook搭建配置使用说明
+
+
+Storybook
+
+什么是storybook
+Storybook安装
+
+安装到项目
+项目插件及编译配置【main.js】
+
+addons插件使用
+
+添加sa..." />
+    <meta name="keywords" content="javascript" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://caohuaqiang1538.github.io">
+        <img src="https://caohuaqiang1538.github.io/images/avatar.png?v=1610522320982" class="site-logo">
+        <h1 class="site-title">强崽-耗子尾汁</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      年轻人要讲码德
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://caohuaqiang1538.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Storybook 使用</h2>
+            <div class="post-date">2021-01-13</div>
+            
+            <div class="post-content" v-pre>
+              <p>结合vue项目搭建storybook工程，storybook搭建配置使用说明</p>
+<!-- more -->
+<p><ul class="markdownIt-TOC">
+<li><a href="#storybook">Storybook</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFstorybook"><strong>什么是storybook</strong></a></li>
+<li><a href="#storybook%E5%AE%89%E8%A3%85"><strong>Storybook安装</strong></a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85%E5%88%B0%E9%A1%B9%E7%9B%AE">安装到项目</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%8F%92%E4%BB%B6%E5%8F%8A%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AEmainjs">项目插件及编译配置【main.js】</a>
+<ul>
+<li><a href="#addons%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8">addons插件使用</a></li>
+<li></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0sassalias%E6%94%AF%E6%8C%81">添加sass/alias支持</a></li>
+<li></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0babel%E6%94%AF%E6%8C%81">添加babel支持</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E6%A8%A1%E6%9D%BF%E5%BA%93%E9%A2%84%E8%A7%88%E9%85%8D%E7%BD%AEpreviewjs">模板库预览配置【preview.js】</a>
+<ul>
+<li><a href="#%E6%9B%B4%E6%94%B9%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%98%BE%E7%A4%BA">更改组件的位置显示</a></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E6%98%BE%E7%A4%BA%E9%A1%BA%E5%BA%8F%E8%AE%BE%E7%BD%AE">组件显示顺序设置</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E5%88%B6%E5%8C%96%E9%85%8D%E7%BD%AEindexstoriesjs">项目定制化配置【index.stories.js】</a>
+<ul>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80%E7%BB%84%E4%BB%B6%E5%8F%8A%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4%E6%94%AF%E6%8C%81">添加全局组件及全局指令支持</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0element%E9%BB%98%E8%AE%A4%E7%BB%84%E4%BB%B6%E5%8F%8A%E5%85%AC%E5%85%B1%E6%A0%B7%E5%BC%8F%E6%94%AF%E6%8C%81">添加element默认组件及公共样式支持</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0lodash%E6%94%AF%E6%8C%81">添加lodash支持</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0i18n%E6%94%AF%E6%8C%81">添加i18n支持</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li></li>
+<li><a href="#storybook%E4%BD%BF%E7%94%A8">Storybook使用</a>
+<ul>
+<li><a href="#%E5%9F%BA%E7%A1%80%E6%A8%A1%E6%9D%BF">基础模板</a>
+<ul>
+<li><a href="#%E5%AF%BC%E5%87%BA%E7%BB%84%E4%BB%B6%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E">导出组件参数说明</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E5%B5%8C%E5%A5%97">组件嵌套</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B">创建组件实例</a></li>
+</ul>
+</li>
+<li></li>
+<li><a href="#%E5%BE%85%E8%A7%A3%E5%86%B3%E5%8F%8A%E9%97%AE%E9%A2%98">待解决及问题</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="storybook"><a href="https://storybook.js.org">Storybook</a><strong>使用说明（vue项目）</strong></h1>
+<h2 id="什么是storybook"><strong>什么是storybook</strong></h2>
+<p>Storybook可以帮助记录项目中封装的组件，方便组件复用。并且可以直观的测试组件，查看组件的各种状态及组件参数。随着项目越来越大，以及新加入项目组的人变多，更好的做到组件复用，避免写一些冗余组件，更快的了解封装组件的使用。</p>
+<h2 id="storybook安装"><strong>Storybook安装</strong></h2>
+<h3 id="安装到项目">安装到项目</h3>
+<p>在现有项目的根目录执行下面命令行，会根据项目的依赖关系，自动提供最佳配置</p>
+<pre><code class="language-javascript">npx sb init
+</code></pre>
+<p>命令行运行后：</p>
+<ul>
+<li>会自动安装所需的依赖项。</li>
+<li>设置运行和生成 Storybook 所需的脚本。</li>
+<li>添加默认的配置。</li>
+<li>添加一些演示的组件，供参考</li>
+</ul>
+<p>安装完成后新增的目录及文件：</p>
+<pre><code class="language-plain">└──.storybook
+|──main.js  // 插件编译配置
+|──preview.js // storybook启动预览配置，可设置组件显示、组件排序、装饰器等
+└──src
+└──stories  // 存放storybook对应组件文件夹
+|──assets
+|──Introduction.stories.mdx  // 组件库说明文档
+|──Button.stories.js  // 示例模板
+</code></pre>
+<h3 id="项目插件及编译配置mainjs">项目插件及编译配置【main.js】</h3>
+<p>自定义配置项（<code>.stortbook -&gt; main.js</code>）：</p>
+<ul>
+<li><code>stories</code>指向存放storire的位置。（安装后会默认生成配置）</li>
+<li><code>addons</code>使用到的插件</li>
+<li><code>webpackFinal</code>自定义webpack配置（配置scss\css-loader等）</li>
+<li><code>babel</code>自定义babel配置</li>
+</ul>
+<hr>
+<h4 id="addons插件使用"><a href="https://storybook.js.org/docs/react/addons/install-addons">addons插件使用</a></h4>
+<p>addons插件分为预置插件和其他插件</p>
+<ol>
+<li>插件安装</li>
+</ol>
+<pre><code class="language-plain">yarn add -D @storybook/addon-a11y
+</code></pre>
+<ol start="2">
+<li>插件注册</li>
+</ol>
+<pre><code class="language-plain">&quot;addons&quot;: [
+  // Other Storybook addons
+  '@storybook/addon-a11y', //👈 the addon registered here
+],
+</code></pre>
+<ol start="3">
+<li>插件配置（预设插件）</li>
+</ol>
+<pre><code class="language-plain">// .storybook/main.js
+module.exports = {
+  addons: [
+    {
+      name: '@storybook/preset-scss',
+      options: {
+        cssLoaderOptions: {
+           modules: true,
+           localIdentName: '[name]__[local]--[hash:base64:5]',
+        }
+      }
+    },
+  ],
+};
+</code></pre>
+<h4 id=""></h4>
+<h4 id="添加sassalias支持">添加sass/alias支持</h4>
+<pre><code class="language-plain">&quot;webpackFinal&quot;: async (config, { configType }) =&gt; {
+  // 添加scss支持
+  config.module.rules.push({
+    test: /\.scss$/,
+    use: [
+      require.resolve(&quot;vue-style-loader&quot;),
+      require.resolve(&quot;css-loader&quot;),
+      require.resolve(&quot;sass-loader&quot;),
+    ],
+  });
+  // 添加alias支持
+  Object.assign(config.resolve.alias,{
+    '@': path.resolve(__dirname, '../src'),
+    'assets': path.resolve(__dirname, '../src/assets/'),
+    'api': path.resolve(__dirname, '../src/api'),
+    'components': path.resolve(__dirname, '../src/components'),
+    'utils': path.resolve(__dirname, '../src/utils'),
+    'views': path.resolve(__dirname, '../src/views'),
+    'styles': path.resolve(__dirname, '../src/styles'),
+    'common': path.resolve(__dirname, '../src/common'),
+  })
+  return config;
+},
+</code></pre>
+<blockquote>
+<p>alias配置要与vue.config.js中alias配置一致，确保storybook能正确匹配到对应的文件</p>
+</blockquote>
+<h4 id="-2"></h4>
+<h4 id="添加babel支持"><a href="https://storybook.js.org/docs/react/configure/babel">添加babel支持</a>（todo）</h4>
+<ol>
+<li>可在<code>.storybook</code>添加<code>.babelIrc</code>文件单独进行配置</li>
+<li>可添加下列配置代码进行配置</li>
+</ol>
+<pre><code class="language-plain">babel: async (options) =&gt; ({
+  ...options,
+  // any extra options you want to set
+}),
+</code></pre>
+<blockquote>
+<p>目前尚未配置好babel，暂时注释掉项目中的 babel.config.js 文件</p>
+</blockquote>
+<h3 id="-3"></h3>
+<h3 id="模板库预览配置previewjs">模板库预览配置【preview.js】</h3>
+<h4 id="更改组件的位置显示">更改组件的位置显示</h4>
+<p>可选配置，有三种类型可选：</p>
+<ul>
+<li><code>centered</code>：使组件在画布中水平垂直对齐</li>
+<li><code>fullscreen</code>：允许组件扩展到画布的整个宽度和高度</li>
+<li><code>padded</code>：在组件周围添加额外的填充</li>
+</ul>
+<pre><code class="language-plain">export const parameters = {
+  actions: { argTypesRegex: &quot;^on[A-Z].*&quot; },
+  layout: 'centered' // centered/fullscreen/padded
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://uploader.shimo.im/f/VApEPFCLPcMPlzzm.png!thumbnail?fileGuid=zDZpGGVn2rUN4YNW" alt="图片" loading="lazy"></figure>
+<h4 id="组件显示顺序设置">组件显示顺序设置</h4>
+<p>将组件显示顺序进行排序</p>
+<pre><code class="language-plain">options: {
+  storySort: {
+    order: ['Intro', 'Pages', ['Home', 'Login', 'Admin']],
+  },
+},
+</code></pre>
+<h3 id="-4"></h3>
+<h3 id="项目定制化配置indexstoriesjs">项目定制化配置【index.stories.js】</h3>
+<h4 id="添加全局组件及全局指令支持">添加全局组件及全局指令支持</h4>
+<pre><code class="language-plain">import directive from '@/utils/directive';
+import GL_Component from '@/utils/globalComponents';
+// 注册全局组件
+Vue.use(GL_Component);
+// 注册全局指令
+Vue.use(directive);
+</code></pre>
+<h4 id="添加element默认组件及公共样式支持">添加element默认组件及公共样式支持</h4>
+<pre><code class="language-plain">import Vue from 'vue';
+import Element from 'element-ui';
+import 'normalize.css/normalize.css';
+import 'element-ui/lib/theme-chalk/index.css';
+import '@/styles/indexfont.scss';
+import '@/assets/iconfont/iconfont.css';
+import '@/styles/index.scss'; // global css
+import i18n from '@/i18n/index.js';
+// element组件引用
+Vue.use(Element);
+</code></pre>
+<h4 id="添加lodash支持">添加lodash支持</h4>
+<pre><code class="language-plain">import lodash from 'lodash';
+// 注册lodash
+Vue.prototype.$_ = lodash;
+</code></pre>
+<h4 id="添加i18n支持">添加i18n支持</h4>
+<p>I18n目前通过<code>this.$t()</code>使用存在问题，暂未解决。通过将 i18n 挂载到 vue 原型后，使用<code>i18n.tc()</code>方法读取词条</p>
+<pre><code class="language-plain">import i18n from '@/i18n/index.js';
+Vue.use(directive);
+// 使用i18n
+Vue.prototype.i18n = i18n;
+</code></pre>
+<blockquote>
+<p>通过这种方法使用词条，公共组件的 this.$t() 方法需要更改为 i18n.tc() 方法</p>
+</blockquote>
+<h2 id="-5"></h2>
+<h2 id="storybook使用"><a href="https://storybook.js.org/docs/react/api/csf">Storybook使用</a></h2>
+<h3 id="基础模板">基础模板</h3>
+<ol>
+<li>导入对应的组件</li>
+<li>创建并导出组件实例</li>
+<li>导出组件</li>
+</ol>
+<pre><code class="language-plain">import MyHeader from './Header'; // 导入组件
+export default {
+  title: 'Example/Header',
+  component: MyHeader,
+}; // 导出默认配置
+const Template = (args, { argTypes }) =&gt; ({
+  props: Object.keys(argTypes),
+  components: { MyHeader },
+  template:
+    '&lt;my-header :user=&quot;user&quot; @onLogin=&quot;onLogin&quot; @onLogout=&quot;onLogout&quot; @onCreateAccount=&quot;onCreateAccount&quot; /&gt;',
+}); // 定义代码模板
+export const LoggedIn = Template.bind({}); // 导出应用实例1
+LoggedIn.args = {
+  user: {},
+}; // 应用实例1参数
+export const LoggedOut = Template.bind({}); // 导出应用实例2
+LoggedOut.args = {}; // 应用实例2参数
+</code></pre>
+<blockquote>
+<ol>
+<li>要实现组件文档中属性的动态更改显示，需要把组件对应的属性传入到 template 对应的模板中，上述代码是单个进行传入的，也可通过 <my-header  v-bind="$props"/>这种方式传入</li>
+<li>绑定事件时，this.$emit('事件名称') 事件名称书写需要以on开头，组件库才可以监测到事件的执行，同时事件执行会显示到 Actions 中</li>
+</ol>
+</blockquote>
+<h4 id="导出组件参数说明"><a href="https://storybook.js.org/docs/vue/writing-docs/doc-blocks">导出组件参数说明</a></h4>
+<pre><code class="language-plain">{
+  title:'', //组件目录/组件名称 （中英文都支持）
+  component:'', //导入的组件
+  parameters: {
+    docs: { 
+      description: { 
+        component: '组件描述' // 更改当前组件的描述信息 
+      } 
+    },
+  }，
+  args: {
+    // 全局组件参数，设置后，所有组件实例使用此参数
+    type: 'primary' // 所以组件实例都默认为primary类型
+  },
+  argTypes: {
+    字段名(例如:type): {
+      name: '', //文档中显示的字段名，一般情况无需修改
+      defaultValue: '', //默认值
+      description: '', //文档中显示的描述，可在组件中通过多行文本注释自动读取
+      table: {
+        type: { 
+          summary：'string', //在表格文档中展示的类型，一般情况无需设置
+        },
+        defaultValue: {
+           summary: '', //表格文档中显示的default默认值
+        },
+        category: '' //分组，添加后会在文档中单独分为一组
+      },
+      control: {
+        type: ''， //对应表格中的control列，可选值select/color/number/event
+        options：['test','test1'] // 当类型为select时，下拉框展示的值
+      }
+    }
+  }
+}
+</code></pre>
+<blockquote>
+<ol>
+<li>组件参数的描述信息会自动读取，要求组件书写时，参数注释写为 /<em>注释</em>/ 格式</li>
+<li>表格中展示的值需要额外更改时，可在table下配置，一般不需要更改</li>
+<li>table 下的 category 可将参数分组进行管理，参数复杂时，可将同一类参数做分组处理</li>
+<li>control 属性主要用来设置组件文档的值更改方式，可为下拉框、颜色、数字等<br>
+5.组件书写时，对于基本类型的默认值，建议直接写为： default: 值  不要使用箭头函数来书写基本类型的默认参数</li>
+</ol>
+</blockquote>
+<h3 id="-6"></h3>
+<h3 id="组件嵌套">组件嵌套</h3>
+<p>条件：1. 某个组件需嵌套另一个公共组件；2. 需要传入值到公共组件</p>
+<p>示例：</p>
+<pre><code class="language-plain">import TablePage from '@/components/TablePage/index.vue'; // 导入模板组件
+import * as ChartEmpty from './ChartEmpty.stories'; // 导入嵌套的模板组件
+export default {
+  title: 'project/表格',
+  component: TablePage
+}; // 导出组件
+const Template = (args, { argTypes }) =&gt; ({
+  props: Object.keys(argTypes),
+  components: { TablePage },
+  template: `&lt;TablePage /&gt;`,
+}); // 创建组件模板
+export const Default = Template.bind({}); // 创建展示实例
+Default.args = {
+  ...ChartEmpty.Default.args, // 导入嵌套组件参数
+  tableData:[]
+}
+</code></pre>
+<blockquote>
+<p>关键代码：第2行 及 第18行</p>
+</blockquote>
+<h3 id="创建组件实例">创建组件实例</h3>
+<pre><code class="language-plain">const Primary = ButtonStory.bind({});
+Primary.args = {
+  primary: true,
+  label: 'Button',
+}
+const Secondary = ButtonStory.bind({});
+Secondary.args = {
+  ...Primary.args,
+  primary: false,
+}
+</code></pre>
+<blockquote>
+<p>可根据不同的使用场景，传入不同的参数，创建多个组件实例。创建后，组件文档会生成对应的多个组件实例演示</p>
+</blockquote>
+<h2 id="-7"></h2>
+<h2 id="待解决及问题">待解决及问题</h2>
+<p>待解决：</p>
+<ol>
+<li>vuex 的集成  单独的公共组件是不应该涉及到与全局状态的关联，不建议集成</li>
+<li>i18n 的集成，目前虽然集成进去，但是实现不是很理想</li>
+<li>slot 插槽描述信息更改</li>
+<li>storybook babel 配置</li>
+<li>chart图标组件引入 utils/index 下的方法时会导致运行异常</li>
+</ol>
+<p>问题：</p>
+<ol>
+<li>组件的<a href="https://cn.vuejs.org/v2/style-guide/#Prop-%E5%AE%9A%E4%B9%89%E5%BF%85%E8%A6%81">props</a>书写规范</li>
+<li>组件的事件命名规范</li>
+<li>组件初始化时机，类似 chart 组件，初始化 chart 方法在 watch 中，组件一开始无法展示。</li>
+</ol>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://caohuaqiang1538.github.io/vP9GJlmpY/" class="tag">
+                    javascript
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://caohuaqiang1538.github.io/hello-gridea/">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

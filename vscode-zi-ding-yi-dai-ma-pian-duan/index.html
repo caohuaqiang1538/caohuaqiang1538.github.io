@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Vscode 自定义代码片段 | 强崽-耗子尾汁</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://caohuaqiang1538.github.io/favicon.ico?v=1610522320982">
+<link rel="stylesheet" href="https://caohuaqiang1538.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="实现定制化、个性化的一些快捷模板、css补全、js方法提示等
+
+
+VS Code 自定义代码片段
+
+使用说明：
+格式
+代码片段语法
+
+Tabstops
+Placeholders
+Choice
+Variables
+
+Vscode可使用变量列表..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://caohuaqiang1538.github.io">
+        <img src="https://caohuaqiang1538.github.io/images/avatar.png?v=1610522320982" class="site-logo">
+        <h1 class="site-title">强崽-耗子尾汁</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      年轻人要讲码德
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://caohuaqiang1538.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Vscode 自定义代码片段</h2>
+            <div class="post-date">2021-01-13</div>
+            
+            <div class="post-content" v-pre>
+              <p>实现定制化、个性化的一些快捷模板、css补全、js方法提示等</p>
+<!-- more -->
+<p><ul class="markdownIt-TOC">
+<li><a href="#vs-code-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5"><strong>VS Code 自定义代码片段</strong></a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><strong>使用说明：</strong></a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F"><strong>格式</strong></a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E8%AF%AD%E6%B3%95"><strong>代码片段语法</strong></a>
+<ul>
+<li><a href="#tabstops"><strong>Tabstops</strong></a></li>
+<li><a href="#placeholders"><strong>Placeholders</strong></a></li>
+<li><a href="#choice"><strong>Choice</strong></a></li>
+<li><a href="#variables"><strong>Variables</strong></a>
+<ul>
+<li><a href="#vscode%E5%8F%AF%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F%E5%88%97%E8%A1%A8"><strong>Vscode可使用变量列表</strong></a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><strong>环境变量</strong></a></li>
+<li><a href="#%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E5%8F%98%E9%87%8F"><strong>日期时间变量</strong></a></li>
+<li><a href="#%E6%B3%A8%E9%87%8A%E5%8F%98%E9%87%8F"><strong>注释变量</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%98%E9%87%8F%E8%BD%AC%E6%8D%A2"><strong>变量转换</strong></a></li>
+<li><a href="#%E5%8D%A0%E4%BD%8D%E7%AC%A6%E8%BD%AC%E6%8D%A2"><strong>占位符转换</strong></a></li>
+<li><a href="#key-command-when-%E7%BB%91%E5%AE%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE"><strong>Key、command、when 绑定自定义快捷键</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><strong>使用方法</strong></a></li>
+<li><a href="#vuecode-snippets%E8%AF%B4%E6%98%8E"><strong>Vue.code-snippets说明</strong></a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="vs-code-自定义代码片段"><strong>VS Code 自定义代码片段</strong></h1>
+<h2 id="使用说明"><strong>使用说明：</strong></h2>
+<p>自定义代码片段主要为了实现定制化、个性化的一些快捷模板、css补全、js方法提示等，</p>
+<p>分为全局代码片段和针对单独项目的自定义片段。针对单独项目的自定义片段会创建到项目所在文件夹下的Vscode 文件夹中。</p>
+<p>代码段支持大多数用于动态行为的 TextMate 语法，根据插入上下文智能地格式化空格，并允许简单的多行编辑。</p>
+<h2 id="格式"><strong>格式</strong></h2>
+<pre><code class="language-plain">{
+   &quot;For Loop&quot;: {
+      &quot;scope&quot;: &quot;vue,javascript&quot;,
+      &quot;prefix&quot;: [&quot;for&quot;, &quot;for-const&quot;],
+      &quot;body&quot;: [&quot;for (const ${2:element} of ${1:array}) {&quot;, &quot;\t$0&quot;, &quot;}
+      ],
+      &quot;description&quot;: &quot;A for loop.&quot;
+   }
+}
+</code></pre>
+<ol>
+<li><code>For Loop</code>: 代码片段的名称</li>
+<li><code>Scope</code>: 代码片段作用域，限制在什么类型的文件下出发提示，多个文件类型用“,“隔开</li>
+<li><code>Prefix</code>: 代码片段一个或多个触发字</li>
+<li><code>Body</code>:一行或多行内容，插入后将作为多行连接。新行和嵌入的制表符将根据插入代码片段的上下文进行格式化</li>
+<li><code>Description</code>: 代码段的可选说明</li>
+</ol>
+<blockquote>
+<p>Tip:输入特殊字符需要使用‘\’转义，如需输入‘<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">’</mi><mi mathvariant="normal">符</mi><mi mathvariant="normal">号</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">需</mi><mi mathvariant="normal">这</mi><mi mathvariant="normal">样</mi><mi mathvariant="normal">写</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">‘</mi></mrow><annotation encoding="application/x-tex">’符号，需这样写：‘</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">’</span><span class="mord cjk_fallback">符</span><span class="mord cjk_fallback">号</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">需</span><span class="mord cjk_fallback">这</span><span class="mord cjk_fallback">样</span><span class="mord cjk_fallback">写</span><span class="mord cjk_fallback">：</span><span class="mord">‘</span></span></span></span>$’</p>
+</blockquote>
+<h2 id="代码片段语法"><strong>代码片段语法</strong></h2>
+<h3 id="tabstops"><strong>Tabstops</strong></h3>
+<p>说明：使用 tabstops，可以使编辑器光标在代码片段中移动。使用 $1，$2指定光标位置。数字是访问 tabstops 的顺序，而 $0表示最终的光标位置。如使用多个$1，会创建多个光标，同时修改$1占取的位置内容</p>
+<pre><code class="language-plain">语法：$1、$2
+</code></pre>
+<h3 id="placeholders"><strong>Placeholders</strong></h3>
+<p>说明：占位符是带有值的tabstops,用来作为默认值或者提示词。多个占位符可以嵌套</p>
+<pre><code class="language-plain">语法：${ 1:placeholder }、${ 1:another ${ 2:placeholder } }
+</code></pre>
+<h3 id="choice"><strong>Choice</strong></h3>
+<p>说明：提供默认的选项值</p>
+<pre><code class="language-plain">语法：${ 1 | one, two, three | }
+</code></pre>
+<h3 id="variables"><strong>Variables</strong></h3>
+<p>说明：vscode 提供的变量</p>
+<pre><code class="language-plain">语法：$name、${ name:default }
+</code></pre>
+<p>Tip:name指代vscode提供的变量名，当变量名不存在时，会使用default并被转换为占位符</p>
+<h4 id="vscode可使用变量列表"><strong>Vscode可使用变量列表</strong></h4>
+<h4 id="环境变量"><strong>环境变量</strong></h4>
+<ul>
+<li><code>TM_SELECTED_TEXT</code>当前选定的文本或空字符串</li>
+<li><code>TM_CURRENT_LINE</code>当前行的内容</li>
+<li><code>TM_CURRENT_WORD</code>触发提示时输入的内容，例如：输入vue获得代码段提示，按下回车或者选中提示的代码段时，TM_CURRENT_WORD就是指vue</li>
+<li><code>TM_LINE_INDEX</code>插入代码片段时上一行的行号</li>
+<li><code>TM_LINE_NUMBER</code>插入代码片段时所处的行号</li>
+<li><code>TM_FILENAME</code>当前文档的文件名</li>
+<li><code>TM_FILENAME_BASE</code>没有扩展名的当前文档的文件名</li>
+<li><code>TM_DIRECTORY</code>当前文档的目录</li>
+<li><code>TM_FILEPATH</code>当前文档的完整文件路径</li>
+<li><code>CLIPBOARD</code>剪贴板中的内容</li>
+<li><code>WORKSPACE_NAME</code>的工作区或文件夹的名称</li>
+</ul>
+<h4 id="日期时间变量"><strong>日期时间变量</strong></h4>
+<ul>
+<li><code>CURRENT_YEAR</code>本年度（2020）</li>
+<li><code>CURRENT_YEAR_SHORT</code>当年的最后两位数字（20）</li>
+<li><code>CURRENT_MONTH</code>当前月份（02）</li>
+<li><code>CURRENT_MONTH_NAME</code>月份的全名（July）</li>
+<li><code>CURRENT_MONTH_NAME_SHORT</code>月份的简称（Jul）</li>
+<li><code>CURRENT_DATE</code>当前日期（16）</li>
+<li><code>CURRENT_DAY_NAME</code>日期的名称（星期一）</li>
+<li><code>CURRENT_DAY_NAME_SHORT</code>日期的短名称（Mon）</li>
+<li><code>CURRENT_HOUR</code>24小时时钟格式的当前小时（11）</li>
+<li><code>CURRENT_MINUTE</code>当前分钟（37）</li>
+<li><code>CURRENT_SECOND</code>当前秒数（51）</li>
+<li><code>CURRENT_SECONDS_UNIX</code>自 Unix 新纪元以来的秒数（1605497925）</li>
+</ul>
+<h4 id="注释变量"><strong>注释变量</strong></h4>
+<ul>
+<li><code>BLOCK_COMMENT_START</code>输出为：&lt;!--</li>
+<li><code>BLOCK_COMMENT_END</code>输出为：--&gt;</li>
+<li><code>LINE_COMMENT</code>输出为 //</li>
+</ul>
+<h3 id="变量转换"><strong>变量转换</strong></h3>
+<p>说明：将变量的值格式化处理后插入预定的位置</p>
+<pre><code class="language-plain">语法：${ var_name/regular_expression/format_string/options }
+</code></pre>
+<ol>
+<li><code>var_name</code>：变量名</li>
+<li><code>regular_expression</code>：正则表达式</li>
+<li><code>format_string</code>：格式串</li>
+<li><code>options</code>：正则表达式匹配选项</li>
+</ol>
+<p>format_string说明：</p>
+<ol>
+<li>/upcase 全部转为大写</li>
+<li>/downcase 全部转为小写</li>
+<li>/capitalize 首字母大写</li>
+<li>+if 满足正则条件时，显示if（if只是代称，使用时更换为具体的字符串）</li>
+<li>?if:else 满足正则条件时，显示if,否则显示else</li>
+<li>-else 不满足正则条件时，显示else</li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-plain">${TM_FILENAME/(.*)/${1:/upcase}/}; // 全部转为大写
+${TM_FILENAME/(^per)/${1:+isper}/};  // 如果文件名以per开头，就把per替换为isper
+</code></pre>
+<h3 id="占位符转换"><strong>占位符转换</strong></h3>
+<p>说明：将占位符转换为别的字符串后进行输出</p>
+<pre><code class="language-plain">语法：${ int /regular_expression/format_string/options }
+</code></pre>
+<ol>
+<li><code>int</code>：占位符对应的光标序号</li>
+<li><code>regular_expression</code>：正则表达式</li>
+<li><code>format_string</code>：格式串</li>
+<li><code>options</code>：正则表达式匹配选项</li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-plain">&quot;console.log('${1}${2} -- ${1/hello/你好/}${2/world/世界/}');&quot;, // 将hello world 转为 你好世界
+</code></pre>
+<h3 id="key-command-when-绑定自定义快捷键"><strong>Key、command、when 绑定自定义快捷键</strong></h3>
+<pre><code class="language-plain">{
+   &quot;key&quot;: &quot;cmd+k 1&quot;,
+   &quot;command&quot;: &quot;editor.action.insertSnippet&quot;,
+   &quot;when&quot;: &quot;editorTextFocus&quot;,
+   &quot;args&quot;: {
+      &quot;snippet&quot;: &quot;console.log($1)$0&quot;
+    }
+}
+</code></pre>
+<blockquote>
+<p>参考地址：<a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets">https://code.visualstudio.com/docs/editor/userdefinedsnippets</a></p>
+</blockquote>
+<h2 id="使用方法"><strong>使用方法</strong></h2>
+<ol>
+<li>使用vscode 自带的添加自定义代码片段功能
+<ol>
+<li>文件-&gt;首选项-&gt;用户片段</li>
+<li>选择已有代码片段进行编辑 或者 新建代码片段</li>
+<li>按照规定格式及语法书写代码片段具体对象</li>
+</ol>
+</li>
+<li>使用<a href="https://github.com/abulka/vscode-snippet-creator">snippet-creator</a>扩展
+<ol>
+<li>选中要创建为片段的代码（代码中的语法与上面讲到的语法一样）</li>
+<li>Ctrl + shift + p -&gt; create Snippet</li>
+<li>选择要进行代码片段提示的文件类型</li>
+<li>输入代码片段描述</li>
+<li>输入触发代码片段的快捷短语</li>
+<li>输入代码片段的描述</li>
+</ol>
+</li>
+</ol>
+<h2 id="vuecode-snippets说明"><strong>Vue.code-snippets说明</strong></h2>
+<ol>
+<li>html模板</li>
+<li>css模板</li>
+<li>momentJs 常用操作</li>
+<li>lodash 常用操作</li>
+<li>方法注释模板</li>
+<li>国际化公共词条</li>
+<li>公共方法（utils目录、vuex）快捷导入</li>
+<li>Scss 定义的全局变量等快捷引入 ----todo</li>
+</ol>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://caohuaqiang1538.github.io/storybook-shi-yong/">
+                  <h3 class="post-title">
+                    Storybook 使用
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
